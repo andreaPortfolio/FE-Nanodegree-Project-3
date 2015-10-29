@@ -14,7 +14,7 @@
  * a little simpler to work with.
  */
 
-var audio = new Audio('sounds/level1.mp3');
+
 
 
 var Engine = (function (global) {
@@ -29,7 +29,8 @@ var Engine = (function (global) {
         newTag = document.createElement("p"),
         gameStop = 0,
         lastTime,
-        reqAnim;
+        reqAnim,
+        audio = new Audio('sounds/level1.mp3');
 
 
     canvas.setAttribute("id", "canvas");
@@ -188,10 +189,10 @@ var Engine = (function (global) {
         win.enemy.x = 0;
         win.enemy1.x = 0;
         win.enemy2.x = 0;
-        win.player.sprite = win.arrayPlayerSprite[win.random(5)];
-        win.gem.x = win.arrayGemX[win.random(8)];
-        win.gem.y = win.arrayGemY[win.random(3)];
-        win.gem.sprite = win.arrayGemSprite[win.random(3)];
+        win.player.sprite = win.player.arrayPlayerSprite[win.random(5)];
+        win.gem.x = win.gem.arrayGemX[win.random(8)];
+        win.gem.y = win.gem.arrayGemY[win.random(3)];
+        win.gem.sprite = win.gem.arrayGemSprite[win.random(3)];
         audio.pause();
         gameStop = 1;
         ctx.beginPath();

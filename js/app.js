@@ -1,14 +1,6 @@
-"use strict";
-
-var arrayGemX = [0, 100, 200, 305, 405, 505, 605, 705],
-    arrayGemY = [60, 130, 220],
-    arrayGemSprite = ['images/Gem Blue.png', 'images/Gem Green.png', 'images/Gem Orange.png'],
-    arrayPlayerSprite = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png'],
-    count = 7000,
+var count = 7000,
     life = 3,
-    startVelocityNumber = 2,
-    waterSound = new Audio('sounds/water.mp3'),
-    deathSound = new Audio('sounds/death.mp3');
+    startVelocityNumber = 2;
 
 
 // Enemies our player must avoid
@@ -31,7 +23,8 @@ Enemy.prototype.update = function (dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    document.querySelector('p').innerHTML = "POINTS " + count + "   LIVES: " + life;
+    document.querySelector('p').innerHTML = "POINTS " +
+        count + "   LIVES: " + life;
     count--;
     if (this.x < 809) {
         this.x += this.velocity * dt;
@@ -58,7 +51,8 @@ Enemy.prototype.render = function () {
 Enemy.prototype.move = function () {
 
 
-    this.velocity = (Math.floor((Math.random() * (180 - 90)) + 90)) * startVelocityNumber;
+    this.velocity = (Math.floor((Math.random() *
+            (180 - 90)) + 90)) * startVelocityNumber;
 
     return this.velocity;
 
@@ -76,9 +70,13 @@ Enemy.prototype.position = function (y) {
 // a handleInput() method.
 
 var Player = function () {
-    this.sprite = arrayPlayerSprite[random(5)];
+    this.arrayPlayerSprite = ['images/char-boy.png', 'images/char-cat-girl.png',
+        'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png'];
+    this.sprite = this.arrayPlayerSprite[random(5)];
     this.x = 404;
     this.y = 420;
+    this.waterSound = new Audio('sounds/water.mp3');
+    this.deathSound = new Audio('sounds/death.mp3');
 };
 
 Player.prototype.update = function () {
@@ -92,10 +90,11 @@ Player.prototype.render = function () {
         reset();
     }
     if ((distance(player.x, player.y, enemy.x, enemy.y)) < 50) {
-        deathSound.play();
+        this.deathSound.play();
         life--;
         if (life === 0) {
-            document.querySelector('p').innerHTML = "POINTS " + count + "   LIVES: " + life;
+            document.querySelector('p').innerHTML = "POINTS " +
+                count + "   LIVES: " + life;
             reset();
         }
         else {
@@ -105,10 +104,11 @@ Player.prototype.render = function () {
         }
     }
     else if ((distance(player.x, player.y, enemy1.x, enemy1.y)) < 50) {
-        deathSound.play();
+        this.deathSound.play();
         life--;
         if (life === 0) {
-            document.querySelector('p').innerHTML = "POINTS " + count + "   LIVES: " + life;
+            document.querySelector('p').innerHTML = "POINTS " +
+                count + "   LIVES: " + life;
             reset();
         }
         else {
@@ -118,10 +118,11 @@ Player.prototype.render = function () {
         }
     }
     else if ((distance(player.x, player.y, enemy2.x, enemy2.y)) < 50) {
-        deathSound.play();
+        this.deathSound.play();
         life--;
         if (life === 0) {
-            document.querySelector('p').innerHTML = "POINTS " + count + "   LIVES: " + life;
+            document.querySelector('p').innerHTML = "POINTS " +
+                count + "   LIVES: " + life;
             reset();
         }
         else {
@@ -134,7 +135,7 @@ Player.prototype.render = function () {
 
 };
 
-//Player hendler, manage actions of player
+//Player handler, manage actions of player
 Player.prototype.handleInput = function (env) {
 
     if (this.x < 10) {
@@ -148,7 +149,7 @@ Player.prototype.handleInput = function (env) {
     }
     else if (this.y < 10) {
 
-        waterSound.play();
+        this.waterSound.play();
         count -= 1000;
         startVelocityNumber += 0.5;
         this.x = 200;
@@ -165,7 +166,7 @@ Player.prototype.handleInput = function (env) {
             break;
         case  "right" :
             this.x += 30;
-             break;
+            break;
         case "left" :
             this.x -= 30;
             break;
@@ -178,15 +179,17 @@ Player.prototype.handleInput = function (env) {
     }
 
 
-
 };
 
 //Create Gem Object. A player when take a gem earn  more time
 var Gem = function () {
-
-    this.sprite = arrayGemSprite[random(3)];
-    this.x = arrayGemX[random(8)];
-    this.y = arrayGemY[random(3)];
+    this.arrayGemX = [0, 100, 200, 305, 405, 505, 605, 705];
+    this.arrayGemY = [60, 130, 220];
+    this.arrayGemSprite = ['images/Gem Blue.png', 'images/Gem Green.png',
+        'images/Gem Orange.png'];
+    this.sprite = this.arrayGemSprite[random(3)];
+    this.x = this.arrayGemX[random(8)];
+    this.y = this.arrayGemY[random(3)];
 
 
 };
@@ -196,9 +199,9 @@ Gem.prototype.update = function () {
 
     if (distance(player.x, player.y, gem.x, gem.y) < 50) {
         count += 1000;
-        this.sprite = arrayGemSprite[random(3)];
-        gem.x = arrayGemX[random(8)];
-        gem.y = arrayGemY[random(3)];
+        this.sprite = this.arrayGemSprite[random(3)];
+        gem.x = this.arrayGemX[random(8)];
+        gem.y = this.arrayGemY[random(3)];
 
     }
 
